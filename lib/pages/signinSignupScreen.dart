@@ -51,6 +51,9 @@ class LoginRegisterPageView extends StatelessWidget {
                 controller: email,
                 decoration: InputDecoration(
                     hintText: 'email',
+                    errorText: controller.isValidate.value
+                        ? 'Tidak boleh kosong'
+                        : null,
                     contentPadding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     border: OutlineInputBorder(
@@ -67,6 +70,9 @@ class LoginRegisterPageView extends StatelessWidget {
                 controller: pass,
                 decoration: InputDecoration(
                     hintText: 'password',
+                    errorText: controller.isValidate.value
+                        ? 'Tidak boleh kosong'
+                        : null,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     border: OutlineInputBorder(
@@ -74,7 +80,19 @@ class LoginRegisterPageView extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  if (email.text.isNotEmpty &&
+                      pass.text.isNotEmpty &&
+                      controller.isLogin.value == true) {
+                    controller.signInWithMail(email.text, pass.text);
+                  } else if (email.text.isNotEmpty &&
+                      pass.text.isNotEmpty &&
+                      controller.isLogin.value == false) {
+                    controller.signUpWithMail(email.text, pass.text);
+                  } else {
+                    controller.isValidate.value = true;
+                  }
+                },
                 child: Center(
                   child: Container(
                     height: 40,
@@ -82,10 +100,10 @@ class LoginRegisterPageView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(40),
                       color: Colors.green,
                     ),
-                    child: const Center(
+                    child: Center(
                         child: Text(
-                      'Sign up',
-                      style: TextStyle(color: Colors.white),
+                      controller.isLogin.value == true ? 'Sign in' : 'Sign up',
+                      style: const TextStyle(color: Colors.white),
                     )),
                   ),
                 ),
@@ -119,7 +137,7 @@ class LoginRegisterPageView extends StatelessWidget {
                     Get.to(() => LoginRegisterPageView());
                   },
                   child: Center(
-                      child: const Text('ALready have an account? Sign in'))),
+                      child: const Text('Already have an account? Sign in'))),
             ],
           ),
         ),

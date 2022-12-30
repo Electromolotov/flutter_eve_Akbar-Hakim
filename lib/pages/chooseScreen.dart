@@ -85,6 +85,7 @@ class ChooseScreen extends StatelessWidget {
           GestureDetector(
               onTap: () {
                 controller.changeLoginValue();
+                Get.to(() => LoginRegisterPageView());
               },
               child: const Text('Don\'t have an account? Sign up')),
         ],
