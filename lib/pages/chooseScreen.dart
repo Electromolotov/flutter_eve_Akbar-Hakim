@@ -17,6 +17,7 @@ class ChooseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -40,7 +41,7 @@ class ChooseScreen extends StatelessWidget {
               height: 60,
               width: 300,
               decoration: BoxDecoration(
-                  border: Border.all(width: 0.5),
+                  border: Border.all(width: 0.1),
                   borderRadius: BorderRadius.circular(5)),
               child: Center(
                 child: Row(

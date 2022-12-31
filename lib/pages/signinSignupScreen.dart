@@ -24,6 +24,7 @@ class LoginRegisterPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.only(right: 20, left: 20),
