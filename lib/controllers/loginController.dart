@@ -28,15 +28,19 @@ class LoginRegisterPageController extends GetxController {
     return await FirebaseAuth.instance
         .signInWithCredential(credential)
         .whenComplete(
-          () => Get.to(const HomeView()),
+          () => Get.to(HomeView()),
         );
+  }
+
+  changeLoginValue() {
+    isLogin.value = !isLogin.value;
+    update();
   }
 
   Future signUpWithMail(String mail, String pwd) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: mail, password: pwd);
-      await Get.to(() => LoginRegisterPageView());
 
       return null;
     } on FirebaseAuthException catch (e) {
@@ -49,9 +53,9 @@ class LoginRegisterPageController extends GetxController {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: mail, password: pwd);
       if (FirebaseAuth.instance.currentUser != null) {
-        displayName = FirebaseAuth.instance.currentUser!.displayName;
+        displayName = FirebaseAuth.instance.currentUser!.email;
         initSharePreferences(displayName.toString());
-        Get.to(() => const HomeView());
+        Get.to(() => HomeView());
       }
       return null;
     } on FirebaseAuthException catch (e) {
@@ -62,10 +66,5 @@ class LoginRegisterPageController extends GetxController {
   initSharePreferences(String name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("displayName", name);
-  }
-
-  changeLoginValue() {
-    isLogin.value = !isLogin.value;
-    update();
   }
 }

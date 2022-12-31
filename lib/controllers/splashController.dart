@@ -13,7 +13,7 @@ class SplashScreenController extends GetxController {
       const Duration(seconds: 5),
       () {
         prefs.getString("displayName") != null
-            ? Get.to(() => const HomeView())
+            ? Get.to(() => HomeView())
             : Get.to(() => ChooseScreen());
       },
     );
